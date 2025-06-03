@@ -1,1 +1,25 @@
-# Init file
+# Link between poll.dop.io domain and Traefik service
+# Api version of ingress object
+apiVersion: networking.k8s.io/v1
+# Ingress object type
+kind: Ingress
+# Identity of the object
+metadata:
+  name: poll-ingress
+  namespace: default
+# Informations for Traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web # This route should be exposed on the default http port
+# Routes definition
+spec:
+  rules:
+    - host: poll.dop.io # Domain -> URL on the navigator
+      http:
+        paths:
+          - path: / # All the requests are listenened on this domain
+            pathType: Prefix
+            backend:
+              service:
+                name: poll # Name of the service where it's redirected
+                port:
+                  number: 80 # port exposed by the service
