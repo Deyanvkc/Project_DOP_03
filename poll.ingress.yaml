@@ -1,5 +1,5 @@
 # Link between poll.dop.io domain and Traefik service
-# Api version of ingress object
+# Api version of the ingress object
 apiVersion: networking.k8s.io/v1
 # Ingress object type
 kind: Ingress
