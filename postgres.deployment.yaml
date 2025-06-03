@@ -1,5 +1,5 @@
 apiVersion: apps/v1
-kind: Deployment 
+kind: Deployment
 metadata:
   name: postgres
   namespace: default
@@ -31,3 +31,17 @@ spec:
           persistentVolumeClaim:
             claimName: postgres-pvc
       restartPolicy: Always
+      
+# Explanation of technical terms:
+# - apiVersion: Specifies the Kubernetes API version used for the resource.
+# - kind: Defines the type of Kubernetes resource (e.g., Deployment).
+# - metadata: Contains information like name and namespace for the resource.
+# - replicas: Number of pod instances to run.
+# - selector: Defines how to identify pods managed by this Deployment.
+# - template: Specifies the pod template for the Deployment.
+# - containers: Defines the container specifications, including image, ports, and environment variables.
+# - envFrom: Allows importing environment variables from secrets or config maps.
+# - volumeMounts: Specifies the mounting of volumes into containers.
+# - volumes: Defines the storage volumes used by the pods.
+# - persistentVolumeClaim: Refers to a claim for persistent storage.
+# - restartPolicy: Specifies the pod restart behavior (e.g., Always).
