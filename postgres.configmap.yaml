@@ -1,1 +1,10 @@
-# Init file
+# The Api version of Kubernetes that is used
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: default
+data:
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_DB: votes
