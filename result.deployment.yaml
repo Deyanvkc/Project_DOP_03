@@ -1,1 +1,35 @@
-# Init file
+# Version API
+apiVersion: apps/v1
+# Define this file as a Deployment
+kind: Deployment
+# Description of the Deployment
+metadata:
+  name: result
+  namespace: default
+spec:
+  # Number of replicas
+  replicas: 2
+  # Select the pods associated with this service
+  selector:
+    matchLabels:
+      app: result
+  # Define the template for the pods
+  template:
+    metadata:
+      labels:
+        app: result
+    spec:
+      containers:
+        - name: result
+          image: epitechcontent/t-dop-600-result:k8s
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: postgres-config    # POSTGRES_HOST/PORT/DB
+            - secretRef:
+                name: postgres-secret    # POSTGRES_USER/PASSWORD
+          resources:
+            limits:
+              memory: 128Mi
+      restartPolicy: Always
