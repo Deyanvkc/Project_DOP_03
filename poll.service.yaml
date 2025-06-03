@@ -1,1 +1,17 @@
-# Init file
+# Creation of a Kubernetes Service
+apiVersion: v1
+# Specification of the kind of object created
+kind: Service
+# Identity of the object
+metadata:
+  name: poll
+  namespace: default
+# Specification
+spec:
+  selector: # Redirection to these pods
+    app: poll
+  ports:
+    - protocol: TCP
+      port: 80  # Port exposed by the service
+      targetPort: 80 # Container port
+  type: ClusterIP # Internal service, only accessed by poll pods

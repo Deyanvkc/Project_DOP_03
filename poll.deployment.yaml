@@ -1,1 +1,39 @@
-# Init file
+# Runner of Poll
+
+# Api version used to deploy
+apiVersion: apps/v1
+# Specification of the object: here deployment
+kind: Deployment
+# Identity of the deployment
+metadata:
+  name: poll
+  namespace: default
+# Deployment specification
+spec:
+  replicas: 2 # 2 pods/copy of Poll app
+  selector: # Links pods
+    matchLabels:
+      app: poll
+# Pod identification template
+  template:
+    metadata:
+      labels:
+        app: poll
+# Container specification
+    spec:
+      containers: # list of containers to run (here just 1)
+        - name: poll
+          image: epitechcontent/t-dop-600-poll:k8s
+          resources:
+            limits:
+              memory: "128Mi" # Limited memory specification
+# Port exposed
+          ports:
+            - containerPort: 80
+# Env variables
+          env:
+            - name: REDIS_HOST
+              valueFrom: # Bring value from configmap redis-config
+                configMapKeyRef:
+                  name: redis-config
+                  key: REDIS_HOST
