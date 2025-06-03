@@ -1,1 +1,17 @@
-# Init file
+# Version API
+apiVersion: v1
+# Define this file as a Service
+kind: Service
+# Description of the Service
+metadata:
+  name: result
+  namespace: default
+spec:
+    # Select the pods associated with this service
+  selector:
+    app: result
+  ports:
+    - port: 80
+      targetPort: 80
+  # Define the type of service
+  type: ClusterIP

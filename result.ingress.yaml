@@ -1,1 +1,27 @@
-# Init file
+# API K8s for the Ingress / HTTP routing
+apiVersion: networking.k8s.io/v1
+# Define this file as an Ingress
+kind: Ingress
+# Description of the Ingress
+metadata:
+  name: result-ingress
+  namespace: default
+  # Define the Ingress class and entrypoints for Traefik
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  # Define the ingress class to Traefik
+  ingressClassName: traefik
+    # Define the rules for routing HTTP traffic
+  rules:
+    - host: result.dop.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: result
+                port:
+                  number: 80
