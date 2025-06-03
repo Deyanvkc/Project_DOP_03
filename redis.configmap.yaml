@@ -1,1 +1,12 @@
-# Init file
+# Version API
+apiVersion: v1
+# Define this file as a ConfigMap
+kind: ConfigMap
+# Description of the ConfigMap
+metadata:
+  name: redis-config
+  namespace: default
+# Key-value pairs for the ConfigMap
+data:
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
