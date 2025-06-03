@@ -1,1 +1,17 @@
-# Init file
+# Version API
+apiVersion: v1
+# Define this file as a Service
+kind: Service
+# Description of the Service
+metadata:
+  name: redis
+  namespace: default
+spec:
+  # Select the pods associated with this service
+  selector:
+    app: redis
+  ports:
+    - port: 6379
+      targetPort: 6379
+  # Access type for the service in the cluster
+  type: ClusterIP

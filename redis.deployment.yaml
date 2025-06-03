@@ -1,1 +1,36 @@
-# Init file
+# Version API
+apiVersion: apps/v1
+# Define this file as a Deployment
+kind: Deployment
+# Description of the Deployment
+metadata:
+  name: redis
+  namespace: default
+spec:
+  # Only one pod / A pod is an instance of redis by kubernetes
+  replicas: 1
+  # Pod controlled by this deployment
+  selector:
+    matchLabels:
+      app: redis
+  # Template for pod creation
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      # Define the container that will run in the pod
+      containers:
+        - name: redis
+          image: redis:5.0
+          ports:
+            - containerPort: 6379
+          envFrom:
+            - configMapRef:
+                name: redis-config
+          # Resources limits for the container
+          resources:
+            limits:
+              memory: 256Mi
+      # Define the restart policy for the pod
+      restartPolicy: Always
