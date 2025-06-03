@@ -1,1 +1,59 @@
-# Init file
+# ServiceAccount used by Traefik
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: traefik-ingress-controller
+  namespace: kube-public
+
+---
+# ClusterRole granting permissions to Traefik
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: traefik-ingress-controller
+rules:
+  # Core API group
+  - apiGroups: [""]
+    # Resources Traefik needs access to
+    resources: ["services", "endpoints", "pods"]
+    # Permissions for the resources
+    verbs: ["get", "list", "watch"]
+  # API groups for ingress-related resources
+  - apiGroups: ["extensions", "networking.k8s.io"]
+    # Resources for managing ingress
+    resources: ["ingresses", "ingressclasses"]
+    # Permissions for ingress resources
+    verbs: ["get", "list", "watch"]
+  # API group for networking resources
+  - apiGroups: ["networking.k8s.io"]
+    # Additional Traefik resources
+    resources: ["ingressroutes", "middlewares", "tlsoptions"]
+    # Permissions for networking resources
+    verbs: ["get", "list", "watch"]
+  # Core API group
+  - apiGroups: [""]
+    # Access to secrets for TLS certificates
+    resources: ["secrets"]
+    # Permissions for secrets
+    verbs: ["get", "list", "watch"]
+
+---
+# Binding between ClusterRole and ServiceAccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: traefik-ingress-controller-binding
+roleRef:
+  # API group for RBAC
+  apiGroup: rbac.authorization.k8s.io
+  # Type of role being referenced
+  kind: ClusterRole
+  # Name of the ClusterRole being bound
+  name: traefik-ingress-controller
+subjects:
+  # Subject type (ServiceAccount)
+  - kind: ServiceAccount
+    # Name of the ServiceAccount
+    name: traefik-ingress-controller
+    # Namespace of the ServiceAccount
+    namespace: kube-public

@@ -1,1 +1,47 @@
-# Init file
+# Deployment for Traefik
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Name of the deployment
+  name: traefik
+  # Namespace where the deployment resides
+  namespace: kube-public
+spec:
+  # Number of replicas for the deployment
+  replicas: 2
+  selector:
+    matchLabels:
+      # Label to identify pods managed by this deployment
+      app: traefik
+  template:
+    metadata:
+      labels:
+        # Label applied to the pod template
+        app: traefik
+    spec:
+      # ServiceAccount used by the pods
+      serviceAccountName: traefik-ingress-controller
+      containers:
+        - name: traefik
+          # Traefik container image
+          image: traefik:2.7
+          args:
+            # Enable Kubernetes ingress provider
+            - "--providers.kubernetesingress"
+            # Define HTTP entrypoint
+            - "--entrypoints.web.address=:80"
+            # Define HTTPS entrypoint
+            - "--entrypoints.websecure.address=:443"
+            # Enable insecure API dashboard
+            - "--api.insecure=true"
+            # Enable access logs
+            - "--accesslog=true"
+          ports:
+            # Port for HTTP traffic
+            - name: web
+              containerPort: 80
+            # Port for Traefik dashboard
+            - name: dashboard
+              containerPort: 8080
+      # Restart policy for the pods
+      restartPolicy: Always
