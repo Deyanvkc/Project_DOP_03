@@ -25,9 +25,6 @@ spec:
           image: redis:5.0
           ports:
             - containerPort: 6379
-          envFrom:
-            - configMapRef:
-                name: redis-config
           # Resources limits for the container
           resources:
             limits:
