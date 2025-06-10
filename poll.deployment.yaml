@@ -24,13 +24,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - k3d-cluster-tdop-agent-1
-                    - k3d-cluster-tdop-agent-0
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - poll
+              topologyKey: kubernetes.io/hostname
       containers: # list of containers to run (here just 1)
         - name: poll
           image: epitechcontent/t-dop-600-poll:k8s

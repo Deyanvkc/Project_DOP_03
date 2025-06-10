@@ -22,13 +22,13 @@ spec:
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                - key: kubernetes.io/hostname
-                  operator: In
-                  values:
-                    - k3d-cluster-tdop-agent-1
-                    - k3d-cluster-tdop-agent-0
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - result
+              topologyKey: kubernetes.io/hostname
       containers:
         - name: result
           image: epitechcontent/t-dop-600-result:k8s
