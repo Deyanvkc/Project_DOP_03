@@ -37,3 +37,5 @@ spec:
                 configMapKeyRef:
                   name: redis-config
                   key: REDIS_HOST
+      # Define the restart policy for the pod
+      restartPolicy: Always
