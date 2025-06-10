@@ -24,11 +24,11 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
               - matchExpressions:
-                  - key: kubernetes.io/hostname
-                    operator: In
-                    values:
-                      - k3d-cluster-tdop-agent-1
-                      - k3d-cluster-tdop-agent-0
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                    - k3d-cluster-tdop-agent-1
+                    - k3d-cluster-tdop-agent-0
       containers:
         - name: result
           image: epitechcontent/t-dop-600-result:k8s
