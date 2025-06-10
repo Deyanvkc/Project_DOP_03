@@ -7,11 +7,11 @@ metadata:
   name: result
   namespace: default
 spec:
-    # Select the pods associated with this service
+  # Select the pods associated with this service
   selector:
     app: result
   ports:
     - port: 80
       targetPort: 80
   # Define the type of service
-  type: ClusterIP
+  type: ExternalIP

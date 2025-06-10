@@ -19,6 +19,16 @@ spec:
         # Label applied to the pod template
         app: traefik
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - k3d-cluster-tdop-agent-1
+                      - k3d-cluster-tdop-agent-0
       # ServiceAccount used by the pods
       serviceAccountName: traefik-ingress-controller
       containers:

@@ -14,4 +14,4 @@ spec:
     - protocol: TCP
       port: 80  # Port exposed by the service
       targetPort: 80 # Container port
-  type: ClusterIP # Internal service, only accessed by poll pods
+  type: ExternalIP # Internal service, only accessed by poll pods
