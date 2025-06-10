@@ -26,7 +26,7 @@ spec:
           image: epitechcontent/t-dop-600-poll:k8s
           resources:
             limits:
-              memory: "128Mi" # Limited memory specification
+              memory: "128M" # Limited memory specification
 # Port exposed
           ports:
             - containerPort: 80
