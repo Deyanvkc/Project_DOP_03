@@ -31,5 +31,5 @@ spec:
                 name: postgres-secret    # POSTGRES_USER/PASSWORD
           resources:
             limits:
-              memory: 128Mi
+              memory: "128M"
       restartPolicy: Always
