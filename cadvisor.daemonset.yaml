@@ -33,6 +33,10 @@ spec:
             - name: docker
               mountPath: /var/lib/docker
               readOnly: true
+            # Add a volumeMount for cgroup
+            - name: cgroup
+              mountPath: /sys/fs/cgroup
+              readOnly: true
 # Restart and volumes
       restartPolicy: Always # Auto restart
       volumes: # Mount volumes
@@ -48,3 +52,8 @@ spec:
         - name: docker
           hostPath:
             path: /var/lib/docker
+        # Add a volumes entry for cgroup
+        - name: cgroup
+          hostPath:
+            path: /sys/fs/cgroup
+            type: Directory

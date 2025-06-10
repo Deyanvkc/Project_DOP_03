@@ -8,5 +8,5 @@ metadata:
   namespace: default
 # Key-value pairs for the ConfigMap
 data:
-  REDIS_HOST: redis
+  REDIS_HOST: "redis"
   REDIS_PORT: "6379"

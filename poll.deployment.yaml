@@ -36,14 +36,13 @@ spec:
           image: epitechcontent/t-dop-600-poll:k8s
           resources:
             limits:
-              memory: "128Mi" # Limited memory specification
+              memory: "128M" # Limited memory specification
 # Port exposed
           ports:
             - containerPort: 80
 # Env variables
-          env:
-            - name: REDIS_HOST
-              valueFrom: # Bring value from configmap redis-config
-                configMapKeyRef:
-                  name: redis-config
-                  key: REDIS_HOST
+          envFrom:
+            - configMapRef:
+                name: poll-config
+      # Define the restart policy for the pod
+      restartPolicy: Always
