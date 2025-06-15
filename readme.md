@@ -63,7 +63,7 @@ kubectl apply -f traefik.rbac.yaml -f traefik.deployment.yaml -f traefik.service
 Create the `votes` table in PostgreSQL:
 
 ```bash
-echo "CREATE TABLE votes (id text PRIMARY KEY, vote text NOT NULL);" | kubectl exec -i -c postgres -U postgres -- psql
+echo "CREATE TABLE votes (id text PRIMARY KEY, vote text NOT NULL);" | kubectl exec -i <name_of_the_postgreSQL_pod> -c <name_of_the_container> -- psql -U <postgres_username>
 ```
 
 ### Step 7: Configure Hosts
@@ -71,11 +71,10 @@ echo "CREATE TABLE votes (id text PRIMARY KEY, vote text NOT NULL);" | kubectl e
 Update the `/etc/hosts` file with the service IPs:
 
 ```bash
-echo "$(kubectl get nodes -o jsonpath='{ $.items[*].status.addresses[?(@.type=="ExternalIP")].address }') poll.dop.io result.dop.io" | sudo tee -a /etc/hosts
+echo echo "$(kubectl get nodes -o jsonpath=‘{ $.items[*].status.addresses[?(@.type== "ExternalIP")].address }’) poll.dop.io result.dop.io" | sudo tee -a /etc/hosts
 ```
 
 ## Notes
 
 - Ensure Kubernetes is properly configured and running before starting the deployment.
 - Use `kubectl get pods` and `kubectl logs` to monitor the status of the services.
-- Traefik provides an API dashboard accessible via port 8080 for monitoring ingress traffic.
