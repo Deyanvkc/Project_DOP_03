@@ -1,0 +1,12 @@
+# Local Kubernetes secrets
+postgres.secret.yaml
+*.secret.local.yaml
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
